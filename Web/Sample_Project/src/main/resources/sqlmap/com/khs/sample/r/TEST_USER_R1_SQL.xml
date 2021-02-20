@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TEST_USER_R1_SQL">
+    
+    <typeAlias alias="KcciUserVo" type="com.khs.sample.model.kcciUser"/>
+	
+	<resultMap class="KcciUserVo" id="userList_resultMap">
+		<result property="groupname"	           column="GROUPNAME"		        jdbcType="VARCHAR" />
+		<result property="viewname"	      	       column="VIEWNAME"		jdbcType="VARCHAR" />
+		<result property="akgroupid"	  		       column="AKGROUPID"		jdbcType="VARCHAR" />
+		<result property="k_groupid_p"             column="K_GROUPID_P"		jdbcType="VARCHAR" />
+		<result property="k_memberid"             column="K_MEMBERID"		    jdbcType="VARCHAR" />
+		<result property="position"	               column="POSITION"		jdbcType="VARCHAR" />
+		<result property="level"	                   column="LEVEL"		    jdbcType="VARCHAR" />	
+		<result property="path"	                   column="PATH"		    jdbcType="VARCHAR" />	
+		<result property="key"	                   column="KEY"		    jdbcType="VARCHAR" />	
+		<result property="nickName"	                   column="NICKNAME"		    jdbcType="VARCHAR" />		
+	</resultMap>    
+  
+	<select id="TEST_USER_R1_SQL.selectKcciUser" resultMap="userList_resultMap">
+		/* TEST_USER_R1_SQL.selectTestUser */
+		<![CDATA[
+		SELECT 
+			GROUPNAME,
+			VIEWNAME,
+			AKGROUPID,
+			K_GROUPID_P,
+			K_MEMBERID,
+			POSITION,
+			LEVEL,
+			SYS_CONNECT_BY_PATH (VIEWNAME, '/') PATH,
+			CASE 
+				WHEN K_MEMBERID = 0 THEN TO_CHAR(AKGROUPID) 
+				/*ELSE K_MEMBERID END AS KEY,*/
+				ELSE MEMBERID END AS KEY,
+			sys.utl_encode.text_decode(NVL(membernickname,' '),'UTF8',1) AS NICKNAME
+		FROM 
+			(
+			   SELECT 
+					0 AS K_MEMBERID,
+					'' AS MEMBERID ,
+					A.GROUPNAME AS MEMBERNAME,   
+					A.GROUPNAME AS GROUPNAME,	
+					A.K_GROUPID AS AKGROUPID,	
+					0 AS POSITION,
+					'' AS RANKNAME,
+					A.K_GROUPID_P AS K_GROUPID_P,
+					A.GROUPNAME AS VIEWNAME,
+					A.DEPTH AS DEPTH,
+					A.POSITION AS GROUPPOSITION,
+					NULL AS MEMBERNICKNAME
+				FROM CD_GROUP A
+				UNION ALL
+				SELECT 	 
+					C.K_MEMBERID,
+					C.MEMBERID,
+					C.MEMBERNAME,
+					A.GROUPNAME, 
+					0,
+					B.POSITION,
+					D.RANKNAME,
+					CASE WHEN C.K_MEMBERID IS NOT NULL THEN A.K_GROUPID 
+			   		  ELSE A.K_GROUPID_P 
+					END,
+					CASE WHEN C.K_MEMBERID IS NOT NULL THEN C.MEMBERNAME 
+					  ELSE A.GROUPNAME 
+					END,
+					A.DEPTH,
+					A.POSITION,
+					C.MEMBERNICKNAME
+				FROM CD_GROUP A
+				INNER JOIN CD_RELATION B ON A.K_GROUPID = B.K_GROUPID
+				INNER JOIN CD_MEMBER C ON B.K_MEMBERID = C.K_MEMBERID
+				INNER JOIN CD_RANK D ON B.K_RANKID = D.K_RANKID
+			) A
+			START WITH A.AKGROUPID = '9999'
+			CONNECT BY PRIOR A.AKGROUPID = A.K_GROUPID_P
+			ORDER SIBLINGS BY AKGROUPID, POSITION
+		]]>
+	</select>
+</sqlMap>

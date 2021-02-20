@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd">
+	
+    <!-- oracle -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <!-- <property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/> -->
+        <!-- <property name="url" value="jdbc:log4jdbc:oracle:thin:@10.65.21.189:1521:DEVKUM" /> -->
+        <!-- <property name="url" value="jdbc:log4jdbc:oracle:thin:@10.65.21.2:1521:KUM" /> -->
+        <!-- <property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" /> -->
+        
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/> 
+        <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
+        <property name="username" value="KICO"/>
+        <property name="password" value="1234qwer!"/>
+        <property name="poolPreparedStatements" value="true" />
+        <property name="initialSize" value="2" />
+        <property name="maxActive" value="10" />
+        <property name="maxIdle" value="10" />
+        <property name="validationQuery" value="select 1 from dual" />        
+    </bean>
+    
+</beans>

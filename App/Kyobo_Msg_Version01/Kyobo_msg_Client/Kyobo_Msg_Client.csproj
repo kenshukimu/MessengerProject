@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{51F8F96A-6B68-462C-A423-77FBFED1C1C4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Kyobo_Msg_Client</RootNamespace>
+    <AssemblyName>Kyobo_Msg_Client</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\10.65.21.158\upload\system\Messenger\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>19</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>57FB6FD0E2137A6FDB3F00FDFC38C2BF8D5BDDA2</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Kyobo_msg_Client_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DSDO.COMMON.UTIL\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class\AutoCompleteTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="VIew\MessageMng.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\MessageMng.Designer.cs">
+      <DependentUpon>MessageMng.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIew\ChatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\ChatForm.Designer.cs">
+      <DependentUpon>ChatForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class\ClientConfig.cs" />
+    <Compile Include="Class\CommonUtil.cs" />
+    <Compile Include="VIew\findUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\findUser.Designer.cs">
+      <DependentUpon>findUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIew\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIew\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Class\MainProg.cs" />
+    <Compile Include="VIew\MessageView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\MessageView.Designer.cs">
+      <DependentUpon>MessageView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIew\MessageWrite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\MessageWrite.Designer.cs">
+      <DependentUpon>MessageWrite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIew\NoticeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\NoticeView.Designer.cs">
+      <DependentUpon>NoticeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIew\NoticeWrite.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\NoticeWrite.Designer.cs">
+      <DependentUpon>NoticeWrite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VIew\TEST.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\TEST.Designer.cs">
+      <DependentUpon>TEST.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIew\UserInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VIew\UserInfo.Designer.cs">
+      <DependentUpon>UserInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VIew\WebEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VIew\WebEditor.Designer.cs">
+      <DependentUpon>WebEditor.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Class\AutoCompleteTextBox.resx">
+      <DependentUpon>AutoCompleteTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\MessageMng.resx">
+      <DependentUpon>MessageMng.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\ChatForm.resx">
+      <DependentUpon>ChatForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\findUser.resx">
+      <DependentUpon>findUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\MessageView.resx">
+      <DependentUpon>MessageView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\MessageWrite.resx">
+      <DependentUpon>MessageWrite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\NoticeView.resx">
+      <DependentUpon>NoticeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\NoticeWrite.resx">
+      <DependentUpon>NoticeWrite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="VIew\UserInfo.resx">
+      <DependentUpon>UserInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VIew\WebEditor.resx">
+      <DependentUpon>WebEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Kyobo_msg_Client.gclicx" />
+    <None Include="Kyobo_msg_Client_TemporaryKey.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\KcciSystemManager\KSM.DAO\KSM.DAO.csproj">
+      <Project>{8E0BE494-4A5E-4069-8999-BBCFD8FE575C}</Project>
+      <Name>KSM.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DSDO.COMMON.LIBRARY\DSDO.COMMON.LIBRARY.csproj">
+      <Project>{58e2e93c-a5c8-4266-8df2-9c53226e7d3a}</Project>
+      <Name>DSDO.COMMON.LIBRARY</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DSDO.COMMON.UTIL\DSDO.COMMON.UTIL.csproj">
+      <Project>{b0eb98b8-fc2b-4105-a818-dba6fa4e8b00}</Project>
+      <Name>DSDO.COMMON.UTIL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attention.png" />
+    <Content Include="Resources\backcolor.bmp" />
+    <None Include="Resources\blog.png" />
+    <Content Include="Resources\bold.bmp" />
+    <None Include="Resources\btn_fixdel.gif" />
+    <None Include="Resources\btn_fixadd.gif" />
+    <Content Include="Resources\btn_login.gif" />
+    <None Include="Resources\calendar.png" />
+    <None Include="Resources\btn_search.gif" />
+    <None Include="Resources\btn_ok.gif" />
+    <Content Include="Resources\cj.bmp" />
+    <Content Include="Resources\color.bmp" />
+    <None Include="Resources\drive.png" />
+    <Content Include="Resources\fj.bmp" />
+    <None Include="Resources\ftp.png" />
+    <None Include="Resources\homepage.png" />
+    <Content Include="Resources\image.png" />
+    <Content Include="Resources\indent.bmp" />
+    <Content Include="Resources\italic.bmp" />
+    <Content Include="Resources\link.bmp" />
+    <Content Include="Resources\lj.bmp" />
+    <Content Include="Resources\login_bg.gif" />
+    <None Include="Resources\uv.gif" />
+    <None Include="Resources\userView1.jpg" />
+    <None Include="Resources\msgmg.jpg" />
+    <None Include="Resources\mv.gif" />
+    <None Include="Resources\noticeboard.png" />
+    <Content Include="Resources\ol.bmp" />
+    <Content Include="Resources\outdent.bmp" />
+    <None Include="Resources\photoadd.jpg" />
+    <Content Include="Resources\rj.bmp" />
+    <None Include="Resources\role.png" />
+    <Content Include="Resources\server.png" />
+    <None Include="Resources\ub.jpg" />
+    <Content Include="Resources\underscore.bmp" />
+    <Content Include="Resources\uol.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MSHTML">
+      <Guid>{3050F1C5-98B5-11CF-BB82-00AA00BDCE0B}</Guid>
+      <VersionMajor>4</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

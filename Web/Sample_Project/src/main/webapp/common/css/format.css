@@ -1,0 +1,80 @@
+@charset "euc-kr";
+
+.loading {
+	position:absolute;
+	display:none;
+	z-index:1000;
+	width:100%;
+	height:100%;
+	padding-bottom:20px;
+	background-color:rgba(60,60,60,0.3);
+	background-image:url(/common/images/loading.gif);
+	background-repeat:no-repeat;
+	background-position:center 50%;
+}
+
+#layer_fixed
+        {
+            height:40px;
+            width:100%;
+            color: #000000;
+            font-size:13px;
+            font-weight:bold;
+            position:fixed;
+            z-index:999;
+            top:0px;
+            left:0px;
+            -webkit-box-shadow: 0 1px 2px 0 #777;
+            box-shadow: 0 1px 2px 0 #777;
+            background-color:#000;
+        }
+
+#layer_body {
+  padding-top: 45px;
+  background: #EEE;
+}
+
+.flex-container{ 
+	position: absolute;
+    top: 50%;
+    left: 30%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+ } 
+ 
+ span.fancytree-custom-icon.custom-1 {
+  height: 16px;
+  width: 16px;
+  background-image: url("/common/images/group.png");
+}
+
+span.fancytree-custom-icon.custom-2 {
+  height: 16px;
+  width: 16px;
+  background-image: url("/common/images/user.png");
+}
+
+span.fancytree-custom-icon.custom-3 {
+  height: 16px;
+  width: 16px;
+  background-image: url("/common/images/offlIne.png");
+}
+
+.context-menu-icon {
+  min-height: 18px; background-repeat: no-repeat; background-position: 4px 2px;
+}
+
+.context-menu-icon-mail { background-image: url("/common/images/email.png"); }
+.context-menu-icon-info { background-image: url("/common/images/personal-information.png"); }
+.context-menu-icon-chat { background-image: url("/common/images/comment.png"); }
+
+.popup_content {
+  margin: 10px;
+  padding: 0 10px;
+  max-width: 60%;
+  border: 2px solid #444;
+  background: white;
+}
+

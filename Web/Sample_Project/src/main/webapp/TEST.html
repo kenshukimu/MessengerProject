@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	<title>Fancytree - Example: Theming</title>
+
+	<link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./common/css/format.css" />			
+
+	<!-- Include the basic stylesheet: -->
+	<link href="../src/skin-win8/ui.fancytree.css" rel="stylesheet">
+	<!-- Add som custom fonts -->
+	<link href="http://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+	<!-- Override CSS with a custom stylesheet : -->
+	<link href="skin-custom/custom.css" rel="stylesheet" >
+	<script src="../src/jquery.fancytree.js"></script>
+
+	<!-- Start_Exclude: This block is not part of the sample code -->
+	<link href="../lib/prettify.css" rel="stylesheet">
+	<script src="../lib/prettify.js"></script>
+	<link href="sample.css" rel="stylesheet">
+	<!-- <script src="sample.js"></script> -->
+	<!-- End_Exclude -->
+
+<style type="text/css">
+span.fancytree-node.custom1 > span.fancytree-title {
+	color: maroon;
+	font-family: "Audiowide";
+}
+span.fancytree-node.custom1 > span.fancytree-icon {
+	  height: 16px;
+  width: 16px;
+  background-image: url("/common/images/group.png");
+}
+</style>
+
+<script type="text/javascript">
+	$(function(){
+		$("#tree").fancytree({
+			checkbox: true,
+			selectMode: 3,
+			 source: function(event, data) {
+					$.ajax({
+						type : "POST",
+						url : "/getUserList.do",
+						data: {},
+						dataType: "json",
+						async:false,
+				        contentType: "application/json",
+						success : function(files) {
+							 if(files.msg=="OK") {
+								var obj = files.list;				
+								data.result = obj;
+							}  
+						}
+					});
+					//alert(JSON.stringify(data.result))
+					return data.result;
+				},
+				/* icon: function(event, data) {
+			        // For the sake of this example set specific icons in different ways.
+			        //
+			        switch( data.node.type ) {
+			          case "F":
+			        	  return "custom-2";
+			          case "D":
+			            // Insert an <i> tag that will be replaced with an inline SVG graphic
+			            // by Font Awesome's all.js library.
+			            // Note: We DON'T want this, since it will be slow for large trees!
+			        	  return "custom-1";
+			        }
+			    } */
+		});
+	});
+</script>
+<!-- Start_Exclude: This block is not part of the sample code -->
+<script>
+	
+	$(function(){	
+		$("#btn_showProfile").click(function() {
+			var tree = $("#tree").fancytree("getTree"),
+			node = tree.getNodeByKey("F227");
+			
+			//alert(node);
+			
+			//node.extraClasses = "custom1";
+			//node.renderTitle();
+			node.icon = "custom-1";
+			node.renderTitle();
+		});
+	});
+</script>
+<!-- End_Exclude -->
+</head>
+
+<body class="example">
+	<h1>Example: Theming</h1>
+	<p class="description">
+		Include a custom CSS <i>after</i> the standard CSS to override theming.<br>
+		Some nodes have their <code>data.addClass</code> attribute set.<br>
+		Finally, the last two nodes use the <code>data.icon</code> attribute.
+		<br>
+		See the <a href="https://github.com/mar10/fancytree/wiki/TutorialTheming"
+			target="_blank" class="external">Theming Tutorial</a>
+		for details.
+	</p>
+	<div>
+		<!-- <label for="skinswitcher">Skin:</label> <select id="skinswitcher"></select> -->
+	</div>
+	<p id="sampleButtons" >
+	
+	<button id="btn_showProfile" class="profile_open" >Click me</button>
+	</p>
+
+	<div id="tree">
+		
+	</div>
+
+	<!-- Start_Exclude: This block is not part of the sample code -->
+	<hr>
+	<p class="sample-links  no_code">
+		<a class="hideInsideFS" href="https://github.com/mar10/fancytree/">Fancytree project home</a>
+		<a class="hideOutsideFS" href="#">Link to this page</a>
+		<a class="hideInsideFS" href="index.html">Example Browser</a>
+		<a href="#" id="codeExample">View source code</a>
+	</p>
+	<pre id="sourceCode" class="prettyprint" style="display:none"></pre>
+	<!-- End_Exclude -->
+</body>
+</html>

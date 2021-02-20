@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0 //EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<settings cacheModelsEnabled="true" enhancementEnabled="true" lazyLoadingEnabled="true" useStatementNamespaces="true" />
+	
+	<!-- <typeAlias type="com.khs.common.handler.OracleUsTypeHandler" alias="ORACLEUS7ASCII" /> 
+	<typeHandler callback="ORACLEUS7ASCII" jdbcType="VARCHAR" javaType="java.lang.String" /> -->
+	
+	<!-- Read -->
+	<sqlMap resource="sqlmap/com/khs/sample/r/TEST_USER_R1_SQL.xml"/>
+	
+	<!-- cud -->
+	<sqlMap resource="sqlmap/com/khs/sample/cud/TEST_USER_S1_SQL.xml"/>
+	
+</sqlMapConfig>
