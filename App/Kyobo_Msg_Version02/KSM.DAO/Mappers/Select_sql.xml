@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="KSM.DAO" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <parameterMaps>
+    </parameterMaps>
+  <resultMaps>   
+  </resultMaps>
+  <statements>
+    <select id="getUserInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      <![CDATA[          
+        SELECT 
+              A.K_MEMBERID, 
+              A.MEMBERID,
+              A.MEMBERNAME,
+              A.EMAIL,
+              A.OFFICEPHONE,
+              A.HP,
+              A.DESCRIPTION,
+              C.GROUPNAME,
+              D.RANKNAME
+          FROM 
+              CD_MEMBER A, 
+              CD_RELATION B,
+              CD_GROUP C,
+              CD_RANK D
+          WHERE               
+              A.K_MEMBERID = B.K_MEMBERID
+              AND B.K_GROUPID = C.K_GROUPID
+              AND B.K_RANKID = D.K_RANKID
+      ]]>
+            <isNotEmpty property="K_MEMBERID">
+              AND A.K_MEMBERID = #K_MEMBERID#
+            </isNotEmpty>
+      
+    </select>
+
+    <select id="getLoginUserInfo" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+          A.MGS_USERID
+          , (CASE WHEN A.SWCD = '0' OR A.SWCD = '01' THEN '00' ELSE A.SWCD END) AS SWCD
+          , A.NAME
+          , A.LEVEL_CD
+          , A.ADMIN
+          , A.ORG_CD
+          , A.WRONGPASS
+          , A.PASSCHANGTIME
+          , A.AUTH
+          , '' AS GROUP_ID
+          , D.BADMIN
+      FROM
+           MGS_USER_SYS A
+           INNER JOIN CD_MEMBER D
+           ON A.MGS_USERID = D.MEMBERID
+      WHERE
+          UPPER(REPLACE(A.MGS_USERID, ' ', '')) = UPPER(#MGS_USERID#)
+          AND REPLACE(A.PASSWORD, ' ', '') = #PASSWD#
+          AND STAT = '1'
+    </select>
+
+    <select id="getBoarderList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+      C_INDEX,
+      TITLE,
+      REGI_DT,
+      DISPLAY_DT,
+      DBMS_LOB.SUBSTR(CONTEXT, DBMS_LOB.GETLENGTH(CONTEXT)) AS CONTEXT,
+      REGI_ID,
+      MESSAGE_KB,
+      MEMBERNAME AS NAME,
+      FILE_,
+      FILE_ORIGIN,
+      FILE1_,
+      FILE1_ORIGIN,
+      FILE2_,
+      FILE2_ORIGIN,
+      FILE3_,
+      FILE3_ORIGIN,
+      FILE4_,
+      FILE4_ORIGIN,
+      (
+      SELECT LISTAGG(ID_READER,',') WITHIN GROUP(ORDER BY C_INDEX)
+      FROM NOTICE_MESSAGE_MSG_DETAIL D WHERE A.C_INDEX=D.C_INDEX GROUP BY C_INDEX
+      ) AS ID_READER
+      FROM
+      NOTICE_MESSAGE_MSG A
+      INNER JOIN CD_MEMBER B ON A.REGI_ID = B.MEMBERID
+      WHERE
+      (DISPLAY_DT <![CDATA[>=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+        OR 
+        DISPLAY_DT IS NULL)
+        AND MESSAGE_KB = #MESSAGE_KB#
+        <isNotEmpty property="C_INDEX">
+          AND C_INDEX = #C_INDEX#
+        </isNotEmpty>
+        <isNotEmpty property="SEARCHKB">
+          <isEqual property="SEARCHKB" compareValue="1">
+            AND TITLE LIKE '%' || #SEARCHTXT# || '%'
+          </isEqual>
+          <isEqual property="SEARCHKB" compareValue="2">
+            AND REGI_ID IN
+              (SELECT MGS_USERID FROM MGS_USER_SYS WHERE NAME LIKE '%' || #SEARCHTXT# || '%')
+          </isEqual>
+          <isEqual property="SEARCHKB" compareValue="3">
+            AND DBMS_LOB.INSTR(CONTEXT, #SEARCHTXT#) <![CDATA[>]]> 0
+          </isEqual>
+        </isNotEmpty>
+      ORDER BY REGI_DT DESC
+    </select>
+
+    <select id="getUnReadBoarderDetail" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+          A.C_INDEX,
+          A.TITLE,
+          A.REGI_DT,
+          A.DISPLAY_DT,
+          DBMS_LOB.SUBSTR(CONTEXT, DBMS_LOB.GETLENGTH(CONTEXT)) AS CONTEXT,
+          A.REGI_ID,
+          A.MESSAGE_KB,
+          FILE_,
+          FILE_ORIGIN,
+          FILE1_,
+          FILE1_ORIGIN,
+          FILE2_,
+          FILE2_ORIGIN,
+          FILE3_,
+          FILE3_ORIGIN,
+          FILE4_,
+          FILE4_ORIGIN
+          FROM
+          NOTICE_MESSAGE_MSG A,
+          NOTICE_MESSAGE_MSG_DETAIL B
+      WHERE
+          1=1
+          AND A.C_INDEX = B.C_INDEX
+          AND MESSAGE_KB = #MESSAGE_KB#
+        <isNotEmpty property="C_INDEX">
+          AND C_INDEX = #C_INDEX#
+        </isNotEmpty>
+        <isNotEmpty property="REGI_ID">
+          AND ID_READER = #REGI_ID#
+          AND READ_TIME IS NULL
+        </isNotEmpty>
+    </select>
+
+    <select id="getBoarderDetail" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+      C_INDEX,
+      ID_READER,
+      READ_TIME
+      FROM
+      NOTICE_MESSAGE_MSG_DETAIL A
+      WHERE
+      1=1
+      <isNotEmpty property="C_INDEX">
+        AND C_INDEX = #C_INDEX#
+      </isNotEmpty>
+      <isNotEmpty property="REGI_ID">
+        AND ID_READER = #REGI_ID#
+        AND READ_TIME IS NULL
+      </isNotEmpty>
+    </select>
+
+
+    <select id="getBoarderRcvList" parameterClass="System.Collections.Hashtable" resultClass="System.Collections.Hashtable">
+      SELECT
+          A.C_INDEX,
+          TITLE AS TITLE,
+          REGI_DT AS REGI_DT,
+          DISPLAY_DT AS DISPLAY_DT,
+          DBMS_LOB.SUBSTR(CONTEXT, DBMS_LOB.GETLENGTH(CONTEXT)) AS CONTEXT,
+          REGI_ID AS REGI_ID,
+          MESSAGE_KB AS MESSAGE_KB,
+          NAME AS NAME,
+          FILE_ AS FILE_,
+          FILE_ORIGIN AS FILE_ORIGIN,
+          FILE1_ AS FILE1_,
+          FILE1_ORIGIN AS FILE1_ORIGIN,
+          FILE2_ AS FILE2_,
+          FILE2_ORIGIN AS FILE2_ORIGIN,
+          FILE3_ AS FILE3_,
+          FILE3_ORIGIN AS FILE3_ORIGIN,
+          FILE4_ AS FILE4_,
+          FILE4_ORIGIN AS FILE4_ORIGIN
+          ,(
+          SELECT LISTAGG(ID_READER,',') WITHIN GROUP(ORDER BY C_INDEX)
+          FROM NOTICE_MESSAGE_MSG_DETAIL D WHERE A.C_INDEX=D.C_INDEX GROUP BY C_INDEX
+          ) AS ID_READER
+      FROM
+          NOTICE_MESSAGE_MSG A
+          INNER JOIN MGS_USER_SYS B ON A.REGI_ID = B.MGS_USERID
+      WHERE
+         (DISPLAY_DT <![CDATA[>=]]> TO_CHAR(SYSDATE,'YYYYMMDD')
+          OR
+          DISPLAY_DT IS NULL)
+         AND MESSAGE_KB =  #MESSAGE_KB#
+         AND
+            (
+               REGI_ID = #REGI_ID#
+               OR
+               A.C_INDEX IN
+                (SELECT 
+                    C_INDEX
+                   FROM 
+                    NOTICE_MESSAGE_MSG_DETAIL
+                  WHERE 
+                    ID_READER = #REGI_ID#
+                )
+            )
+          <isNotEmpty property="SEARCHKB">           
+            <isEqual property="SEARCHKB" compareValue="1">
+              AND REGI_ID IN
+                (SELECT MGS_USERID FROM MGS_USER_SYS WHERE NAME LIKE '%' || #SEARCHTXT# || '%')
+            </isEqual>
+            <isEqual property="SEARCHKB" compareValue="2">
+              AND DBMS_LOB.INSTR(CONTEXT, #SEARCHTXT#) <![CDATA[>]]> 0
+            </isEqual>
+        </isNotEmpty>
+      ORDER BY REGI_DT DESC
+    </select>
+
+    <select id="getRunMethod" resultClass="System.Collections.Hashtable">
+      SELECT
+          ID,
+          DATA
+        FROM 
+          CD_GROUPSYNC
+    </select>
+  </statements>
+</sqlMap>

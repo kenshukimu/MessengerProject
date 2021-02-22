@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap namespace="KSM.DAO" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ibatis.apache.org/mapping">
+    <parameterMaps>
+    </parameterMaps>
+  <resultMaps>   
+  </resultMaps>
+  <statements>
+    <!--<insert id="insertTR_TRANData" parameterClass="System.Collections.Hashtable">
+      INSERT INTO SC_TRAN (
+      TR_NUM,
+      TR_SENDDATE,
+      TR_SENDSTAT,
+      TR_MSGTYPE,
+      TR_PHONE,
+      TR_CALLBACK,
+      TR_MSG,
+      TR_ETC1)
+      VALUES (
+      SC_TRAN_SEQ.NEXTVAL,
+      SYSDATE,
+      '0',
+      '0',
+      #tr_phone#,
+      #tr_callback#,
+      #tr_msg#,
+      #tr_etc1#)
+    </insert>
+
+    <update id="insertMessengerAlert" parameterClass="System.Collections.Hashtable">
+      <![CDATA[
+      INSERT INTO CD_Alert ( fldData, fldType)
+      VALUES
+      (#ALERTDATA#,#ALERTTYPE#)
+      ]]>
+    </update>-->
+
+    <insert id="insertBoard" parameterClass="System.Collections.Hashtable">
+     
+      <selectKey type="pre" property="NEXT_UN" resultClass="int">
+        SELECT NOTICE_MESSAGE_MSG_SEQ.NEXTVAL AS ID FROM DUAL
+      </selectKey>
+
+      INSERT INTO NOTICE_MESSAGE_MSG
+      (
+              C_INDEX,
+              TITLE,
+              REGI_DT,
+              <isNotEmpty property="DISPLAY_DT">
+              DISPLAY_DT,
+              </isNotEmpty>
+              CONTEXT,
+              REGI_ID,
+              MESSAGE_KB,
+              FILE_,
+              FILE_ORIGIN,
+              FILE1_,
+              FILE1_ORIGIN,
+              FILE2_,
+              FILE2_ORIGIN,
+              FILE3_,
+              FILE3_ORIGIN,
+              FILE4_,
+              FILE4_ORIGIN
+            )
+      VALUES 
+            (
+            #NEXT_UN#,
+            #TITLE#,
+            SYSDATE,
+            <isNotEmpty property="DISPLAY_DT">
+             #DISPLAY_DT#,
+            </isNotEmpty>
+            #CONTEXT#,
+            #REGI_ID#,
+            #MESSAGE_KB#,
+            #FILE_#,
+            #FILE_ORIGIN#,
+            #FILE1_#,
+            #FILE1_ORIGIN#,
+            #FILE2_#,
+            #FILE2_ORIGIN#,
+            #FILE3_#,
+            #FILE3_ORIGIN#,
+            #FILE4_#,
+            #FILE4_ORIGIN#
+            )
+    </insert>
+
+    <insert id="insertBoardDetail" parameterClass="System.Collections.Hashtable">
+      <![CDATA[
+      INSERT INTO NOTICE_MESSAGE_MSG_DETAIL ( C_INDEX, ID_READER)
+      VALUES
+      (#C_INDEX#,#ID_READER#)
+      ]]>
+    </insert>
+
+    <update id="updateBoardDetail" parameterClass="System.Collections.Hashtable">
+      <![CDATA[
+      UPDATE 
+        NOTICE_MESSAGE_MSG_DETAIL 
+      SET 
+      READ_TIME = SYSDATE
+      WHERE
+      C_INDEX = #C_INDEX#
+      AND 
+      ID_READER = #ID_READER#
+      AND READ_TIME IS NULL
+      ]]>
+    </update>
+
+    <update id="updateBoard" parameterClass="System.Collections.Hashtable">
+
+      UPDATE 
+        NOTICE_MESSAGE_MSG
+      SET
+      TITLE = #TITLE#,
+      <isNotEmpty property="DISPLAY_DT">
+        DISPLAY_DT = #DISPLAY_DT#,
+      </isNotEmpty>
+      CONTEXT = #CONTEXT#,
+      REGI_DT = TO_CHAR(SYSDATE,'YYYYMMDD')
+      WHERE
+      C_INDEX = #C_INDEX#
+    </update>
+
+    <delete id="delBoard" parameterClass="System.Collections.Hashtable">
+      <![CDATA[
+      DELETE
+        FROM 
+          NOTICE_MESSAGE_MSG 
+       WHERE 
+          C_INDEX = #C_INDEX#
+      ]]>
+    </delete>
+
+    <update id="mergeNoticeMessageMsgDetail"  parameterClass="System.Collections.Hashtable">
+      MERGE INTO NOTICE_MESSAGE_MSG_DETAIL A
+      USING DUAL ON
+      (    
+        A.C_INDEX 	= #C_INDEX#
+        AND 
+        A.ID_READER = #ID_READER#
+      )
+      WHEN NOT MATCHED THEN
+       INSERT ( C_INDEX, ID_READER, READ_TIME)
+       VALUES
+             (#C_INDEX#,#ID_READER#, SYSDATE)
+    </update>
+
+    <delete id="delRunMethod" parameterClass="System.Collections.Hashtable">
+      <![CDATA[
+      DELETE
+        FROM 
+          CD_GROUPSYNC
+      ]]>
+    </delete>
+
+  </statements>
+</sqlMap>

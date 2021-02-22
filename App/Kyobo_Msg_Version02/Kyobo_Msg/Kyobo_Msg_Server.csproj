@@ -99,10 +99,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\KcciSystemManager\KSM.DAO\KSM.DAO.csproj">
-      <Project>{8e0be494-4a5e-4069-8999-bbcfd8fe575c}</Project>
-      <Name>KSM.DAO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DSDO.COMMON.LIBRARY\DSDO.COMMON.LIBRARY.csproj">
       <Project>{58e2e93c-a5c8-4266-8df2-9c53226e7d3a}</Project>
       <Name>DSDO.COMMON.LIBRARY</Name>
@@ -110,6 +106,10 @@
     <ProjectReference Include="..\DSDO.COMMON.UTIL\DSDO.COMMON.UTIL.csproj">
       <Project>{b0eb98b8-fc2b-4105-a818-dba6fa4e8b00}</Project>
       <Name>DSDO.COMMON.UTIL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KSM.DAO\KSM.DAO.csproj">
+      <Project>{8e0be494-4a5e-4069-8999-bbcfd8fe575c}</Project>
+      <Name>KSM.DAO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
